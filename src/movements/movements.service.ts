@@ -13,7 +13,6 @@ export class MovementsService {
   ) {}
 
   create(data: { userId: string; mouseX: number; mouseY: number }) {
-    this.logger.log(`incoming data to save: ${data}`);
     if (data.userId && data.mouseX && data.mouseY) {
       return this.movementRepository.save(data);
     }
