@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  movements-db:
+    container_name: movements-db
+    image: mongo
+    command: mongod --port ${MONGO_CONTAINER_PORT}
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - ${MONGO_CONTAINER_PORT}:${MONGO_CONTAINER_PORT}
+    volumes:
+      - type: volume
+        source: movements-db-volume-data
+        target: /var/lib/movements-mongo
+      - type: volume
+        source: movements-db-volume-logs
+        target: /var/log/movements-mongo
+    networks:
+      - backend
+
+  movements-server:
+    container_name: movements-server
+    build:
+      context: '.'
+    env_file:
+      - ./.env
+    command: "npm start"
+    restart: always
+    depends_on:
+      - movements-db
+    ports:
+      - ${APP_PORT_EXT}:${APP_PORT_INT}
+    volumes:
+      - './src:/app/src'
+    links: 
+      - movements-db
+    networks:
+      - backend
+
+volumes:
+  movements-db-volume-data:
+  movements-db-volume-logs:
+
+networks:
+  backend:
+    driver: bridge
