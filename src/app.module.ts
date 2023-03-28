@@ -10,11 +10,11 @@ export const SOURCE_PATH =
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      host: process.env.MONGO_HOST,
-      port: parseInt(process.env.MONGO_CONTAINER_PORT),
-      username: process.env.MONGO_USER,
-      password: process.env.MONGO_PASSWORD,
-      database: process.env.MONGO_DB,
+      host: 'movements-db',
+      port: 27016,
+      username: 'user',
+      password: 'userpwd',
+      database: 'user-movements',
       useUnifiedTopology: true,
       synchronize: true,
       logger: 'debug',
