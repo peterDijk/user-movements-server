@@ -31,8 +31,7 @@ services:
     ports:
       - 3000:7070
     volumes:
-      - './src:/app/src'
-      - './dist:/app/dist'
+      - ./src:/usr/app/
     links: 
       - movements-db
     networks:
