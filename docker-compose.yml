@@ -7,17 +7,13 @@ services:
     command: mongod --port ${MONGO_CONTAINER_PORT}
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
     ports:
       - ${MONGO_CONTAINER_PORT}:${MONGO_CONTAINER_PORT}
     volumes:
-      - type: volume
-        source: movements-db-volume-data
-        target: /var/lib/movements-mongo
-      - type: volume
-        source: movements-db-volume-logs
-        target: /var/log/movements-mongo
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - backend
 
@@ -27,7 +23,7 @@ services:
       context: '.'
     env_file:
       - ./.env
-    command: "npm start"
+    command: "npm run start:dev"
     restart: always
     depends_on:
       - movements-db
