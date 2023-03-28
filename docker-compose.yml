@@ -15,7 +15,7 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
-      - backend
+      - bynder.io
 
   movements-server:
     container_name: movements-server
@@ -35,12 +35,12 @@ services:
     links: 
       - movements-db
     networks:
-      - backend
+      - bynder.io
 
 volumes:
   movements-db-volume-data:
   movements-db-volume-logs:
 
 networks:
-  backend:
+  bynder.io:
     driver: bridge
