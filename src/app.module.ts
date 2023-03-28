@@ -4,8 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MovementsModule } from './movements/movements.module';
 
-export const SOURCE_PATH =
-  process.env.ENV === 'production' ? 'dist/src' : 'src';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
