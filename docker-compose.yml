@@ -4,16 +4,14 @@ services:
   movements-db:
     container_name: movements-db
     image: mongo
-    env_file:
-      - ./.env
-    command: mongod --port ${MONGO_CONTAINER_PORT}
+    command: mongod --port 27016
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DB}
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: user-movements
     ports:
-      - ${MONGO_CONTAINER_PORT}:${MONGO_CONTAINER_PORT}
+      - 27016:27016
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
@@ -30,7 +28,7 @@ services:
     depends_on:
       - movements-db
     ports:
-      - ${APP_PORT_EXT}:${APP_PORT_INT}
+      - 3000:7070
     volumes:
       - './src:/app/src'
     links: 
