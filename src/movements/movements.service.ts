@@ -11,7 +11,9 @@ export class MovementsService {
   ) {}
 
   create(data: { userId: string; mouseX: number; mouseY: number }) {
-    return this.movementRepository.save(data);
+    if (data.userId && data.mouseX && data.mouseY) {
+      return this.movementRepository.save(data);
+    }
   }
 
   findAll() {

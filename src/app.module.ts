@@ -4,9 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MovementsModule } from './movements/movements.module';
 
+export const SOURCE_PATH =
+  process.env.ENV === 'production' ? 'dist/src' : 'src';
 @Module({
   imports: [
-    MovementsModule,
     TypeOrmModule.forRoot({
       type: 'mongodb',
       host: process.env.MONGO_HOST,
@@ -15,7 +16,12 @@ import { MovementsModule } from './movements/movements.module';
       password: process.env.MONGO_PASSWORD,
       database: process.env.MONGO_DB,
       useUnifiedTopology: true,
+      synchronize: true,
+      logger: 'debug',
+      autoLoadEntities: true,
+      // entities: [`dist/src/**/*.entity{.js}`],
     }),
+    MovementsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
