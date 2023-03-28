@@ -20,10 +20,11 @@ services:
   movements-server:
     container_name: movements-server
     build:
-      context: '.'
+      context: ../user-movements-server/
+      dockerfile: Dockerfile.dev
     env_file:
       - ./.env
-    command: "npm run start:dev"
+    command: "npm run start:prod"
     restart: always
     depends_on:
       - movements-db
@@ -31,6 +32,7 @@ services:
       - 3000:7070
     volumes:
       - './src:/app/src'
+      - './dist:/app/dist'
     links: 
       - movements-db
     networks:
