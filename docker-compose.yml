@@ -4,6 +4,8 @@ services:
   movements-db:
     container_name: movements-db
     image: mongo
+    env_file:
+      - ./.env
     command: mongod --port ${MONGO_CONTAINER_PORT}
     restart: always
     environment:
