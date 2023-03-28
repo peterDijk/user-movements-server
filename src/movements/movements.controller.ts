@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Movement } from './entities/movement.entity';
 import { MovementsService } from './movements.service';
 
@@ -17,5 +17,10 @@ export class MovementsController {
     { userId, mouseX, mouseY }: any,
   ) {
     return this.movementService.create({ userId, mouseX, mouseY });
+  }
+
+  @Get('user/:id')
+  getByUser(@Param() { id }) {
+    return this.movementService.findByUser(id);
   }
 }
