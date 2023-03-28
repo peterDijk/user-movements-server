@@ -11,7 +11,7 @@ import {
 import { Server } from 'socket.io';
 import { MovementsService } from './movements.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class MovementGateway implements OnGatewayInit, OnGatewayConnection {
   private logger = new Logger(MovementGateway.name);
   @WebSocketServer()
