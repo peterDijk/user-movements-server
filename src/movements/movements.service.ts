@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { Movement } from './entities/movement.entity';
 
 @Injectable()
 export class MovementsService {
+  private logger = new Logger(MovementsService.name);
+
   constructor(
     @InjectRepository(Movement)
     private movementRepository: MongoRepository<Movement>,
