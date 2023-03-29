@@ -9,7 +9,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: user-movements
     ports:
       - 27016:27016
     volumes:
@@ -20,7 +19,7 @@ services:
   movements-server:
     container_name: movements-server
     build:
-      context: ../user-movements-server
+      context: .
       dockerfile: Dockerfile.dev
     env_file:
       - ./.env
