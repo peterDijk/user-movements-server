@@ -20,7 +20,7 @@ services:
   movements-server:
     container_name: movements-server
     build:
-      context: .
+      context: ../user-movements-server
       dockerfile: Dockerfile.dev
     env_file:
       - ./.env
