@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile.dev
     env_file:
       - ./.env
-    command: "npm run start:prod"
+    command: "npm run start:dev"
     restart: always
     depends_on:
       - movements-db
